@@ -8,6 +8,20 @@
 
 import SwiftUI
 
+struct Prominent: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.blue)
+    }
+}
+
+extension View {
+    func prominentStyle() -> some View {
+        self.modifier(Prominent())
+    }
+}
+
 struct ContentView: View {
     @State private var quantity = ""
     @State private var fromUnit = 0
@@ -46,6 +60,7 @@ struct ContentView: View {
             Form {
                 Section {
                     TextField("Convert", text: $quantity)
+                        .prominentStyle()
                         .keyboardType(.decimalPad)
                 }
                 
@@ -69,6 +84,7 @@ struct ContentView: View {
                 
                 Section(header: Text("Converted")) {
                     Text("\(converted, specifier: "%.2f") \(units[toUnit])")
+                        .prominentStyle()
                 }
             }
             .navigationBarTitle("MyConvert")
